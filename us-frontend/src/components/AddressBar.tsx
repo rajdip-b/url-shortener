@@ -24,13 +24,14 @@ const AddressBar: React.FC<AddressBarProps> = (props) => {
     }, [props.generatedUrl]);
 
     return (
-        <div className={'flex gap-10 items-center justify-between px-10 bg-gray/20 py-3 rounded-2xl w-full'}>
+        <div
+            className={'flex gap-3 md:gap-5 lg:gap-10 items-center justify-between px-2 md:px-10 bg-gray/20 py-3 rounded-2xl w-full'}>
             <div className={'flex gap-3'}>
-                <div className={'w-[25px] h-[25px] rounded-full bg-red-500'} />
-                <div className={'w-[25px] h-[25px] rounded-full bg-amber-500'} />
-                <div className={'w-[25px] h-[25px] rounded-full bg-green-500'} />
+                <div className={'md:w-[25px] md:h-[25px] w-[18px] h-[18px] rounded-full bg-red-500'} />
+                <div className={'md:w-[25px] md:h-[25px] w-[18px] h-[18px] rounded-full bg-amber-500'} />
+                <div className={'md:w-[25px] md:h-[25px] w-[18px] h-[18px] rounded-full bg-green-500'} />
             </div>
-            <div className={'flex gap-3 bg-white/40 rounded-xl px-4 py-2 w-[70%] drop-shadow-xl'}>
+            <div className={'flex gap-3 bg-white/40 rounded-xl px-2 md:px-4 py-2 w-[70%] drop-shadow-xl'}>
                 <SearchRounded fontSize={'medium'} />
                 <input
                     value={props.outputMode ? props.generatedUrl ? `${process.env.NEXT_PUBLIC_BACKEND_DISPLAY_URL}/${props.generatedUrl}` : 'Hit generate to get started!' : props.value}
@@ -47,8 +48,8 @@ const AddressBar: React.FC<AddressBarProps> = (props) => {
                         <ContentCopyRounded />
                     </button>
                 }
-                <KeyboardArrowLeftRounded fontSize={'large'} />
-                <KeyboardArrowRightRounded fontSize={'large'} />
+                <KeyboardArrowLeftRounded className={'hidden md:block'} fontSize={'large'} />
+                <KeyboardArrowRightRounded className={'hidden md:block'} fontSize={'large'} />
             </div>
         </div>
     );
