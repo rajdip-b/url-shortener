@@ -24,7 +24,11 @@ const GenerateButton: React.FC<GenerateButtonProps> = props => {
                 props.setGenerateUrl(data.data);
                 toast.success('Your URL got shortened!');
             })
-            .catch(() => toast.error('Uh-oh! Something went wrong!'))
+            .catch((data) => {
+                toast.error('Uh-oh! Something went wrong!')
+                console.log(data);
+                console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+            })
             .finally(() => setLoading(false));
     }, [props]);
 

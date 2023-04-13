@@ -19,7 +19,7 @@ const AddressBar: React.FC<AddressBarProps> = (props) => {
         if (props.generatedUrl === '')
             return;
 
-        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${props.generatedUrl}`);
+        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_BACKEND_DISPLAY_URL}/${props.generatedUrl}`);
         toast.success('Copied to clipboard!');
     }, [props.generatedUrl]);
 
@@ -33,7 +33,7 @@ const AddressBar: React.FC<AddressBarProps> = (props) => {
             <div className={'flex gap-3 bg-white/40 rounded-xl px-4 py-2 w-[70%] drop-shadow-xl'}>
                 <SearchRounded fontSize={'medium'} />
                 <input
-                    value={props.outputMode ? props.generatedUrl ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/${props.generatedUrl}` : 'Hit generate to get started!' : props.value}
+                    value={props.outputMode ? props.generatedUrl ? `${process.env.NEXT_PUBLIC_BACKEND_DISPLAY_URL}/${props.generatedUrl}` : 'Hit generate to get started!' : props.value}
                     onChange={e => props.onChange && props.onChange(e.target.value)}
                     disabled={props.outputMode}
                     type={'text'}

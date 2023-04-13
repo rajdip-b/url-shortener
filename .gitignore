@@ -74,7 +74,6 @@ build/
 
 ### Misc ###
 codes/
-.env*
 data-library/
 config-repo/
 kubernetes/stage-config-map.yaml

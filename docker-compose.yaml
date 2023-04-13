@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+    cassandra:
+      ports:
+      - "9042:9042"
+      image: cassandra
+      environment:
+        - CASSANDRA_PASSWORD=cassandra
+      healthcheck:
+        test: "cqlsh -u cassandra -p cassandra -e 'describe keyspaces;'"
+        interval: 30s
+        timeout: 10s
+        retries: 3
+
+    cassandra-load-keyspace:
+      container_name: cassandra-load-keyspace
+      image: cassandra
+      depends_on:
+        cassandra:
+          condition: service_healthy
+      volumes:
+        - ./cassandra-init.cql:/schema.cql
+      command: /bin/bash -c "echo loading cassandra keyspace && cqlsh cassandra -f /schema.cql"
+
+    backend:
+      build: ./us-backend
+      ports:
+      - "8080:8080"
+      environment:
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      depends_on:
+        cassandra:
+          condition: service_healthy
+      healthcheck:
+        test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+        interval: 30s
+        timeout: 10s
+        retries: 3
+
+    frontend:
+      build: ./us-frontend
+      ports:
+        - "3000:3000"
+      depends_on:
+        backend:
+          condition: service_healthy
